@@ -4,17 +4,17 @@ from copy import copy
 def dual_pivot(items,start=0,end=None):
     if end == None:
         end = len(items) - 1
+    size = end - start + 1
     #TODO: should use insertion sort for small sublists
-    if end - start < 2:
+    if size < 2:
         return
-    print "items", items
-    print "rng", start,end
     # the start of slices is 0-based,
     # but the end of slices is 1-based
     # this is the sort of thing that makes me not like python
+    # scratch copy of the list
     a = items[start:end+1]
-    print "a", a
-    size = end - start
+
+    # also need scratch space between the pivots
     mids = [None]*size
     low_pos = start
     hi_pos = end
@@ -23,14 +23,12 @@ def dual_pivot(items,start=0,end=None):
     pivot2idx = pivot1idx
     while pivot2idx == pivot1idx:
         pivot2idx = random.randrange(size)
-    print "pivot idx", pivot1idx, pivot2idx
     if a[pivot1idx] > a[pivot2idx]:
         tmp = pivot1idx
         pivot1idx = pivot2idx
         pivot2idx = tmp
     pivot1 = a[pivot1idx]
     pivot2 = a[pivot2idx]
-    print "pivots", pivot1, pivot2
     for i in range(0,end-start+1):
         if i == pivot1idx or i == pivot2idx:
             continue
@@ -43,7 +41,6 @@ def dual_pivot(items,start=0,end=None):
         else:
             mids[mid_pos] = a[i]
             mid_pos += 1
-    print "meti", items
     items[low_pos] = pivot1
     items[hi_pos] = pivot2
     items[low_pos+1:hi_pos] = mids[0:mid_pos]
