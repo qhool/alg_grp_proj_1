@@ -6,6 +6,9 @@ sys.path.append("lib")
 import Sorts
 
 class DualPivotTest(sort_tester.SortTester):
+    def isStable(self):
+        return False
+
     #TestSorts expects in-place sort
     def sort(self,items):
         Sorts.dual_pivot(items)
