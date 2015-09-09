@@ -1,13 +1,14 @@
 import random
+import Sorts
 from copy import copy
 
 def dual_pivot(items,start=0,end=None):
     if end == None:
         end = len(items) - 1
     size = end - start + 1
-    #TODO: should use insertion sort for small sublists
-    if size < 2:
-        return
+    # 17 according to http://iaroslavski.narod.ru/quicksort/DualPivotQuicksort.pdf
+    if size < 17:
+        return Sorts.insertion(items,start,end)
     # the start of slices is 0-based,
     # but the end of slices is 1-based
     # this is the sort of thing that makes me not like python
