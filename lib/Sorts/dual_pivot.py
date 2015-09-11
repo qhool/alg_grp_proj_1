@@ -38,6 +38,6 @@ def dual_pivot(T,left=0,right=None):
     #swap pivots into final positions
     T[left],T[L-1] = T[L-1],T[left]
     T[right],T[G+1] = T[G+1],T[right]
-    dual_pivot(T,left,L-1)
+    dual_pivot(T,left,L-2)
     dual_pivot(T,L,G)
-    dual_pivot(T,G+1,right)
+    dual_pivot(T,G+2,right)
