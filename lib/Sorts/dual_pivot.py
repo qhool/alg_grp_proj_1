@@ -7,7 +7,6 @@ from copy import copy
 def dual_pivot(T,left=0,right=None):
     if right == None:
         right = len(T) - 1
-    size =  right - left + 1
     # the lower limit of 17 is according to the paper
     if right - left + 1 < 17:
         Sorts.insertion(T,left,right)
