@@ -1,21 +1,23 @@
 import random
 import Sorts
-from copy import copy
+from Sorts import insertion
+
 
 # dual-pivot quicksort, as described in
 # http://iaroslavski.narod.ru/quicksort/DualPivotQuicksort.pdf
-def dual_pivot(T,left=0,right=None):
+def dual_pivot(T,left=0,right=None,randomize=True,threshold=16,subsort=insertion):
     if right == None:
         right = len(T) - 1
     # the lower limit of 17 is according to the paper
-    if right - left + 1 < 17:
+    if right - left < threshold:
         Sorts.insertion(T,left,right)
         return
 
-    pivot1idx = random.randrange(left,right+1)
-    T[left],T[pivot1idx] = T[pivot1idx],T[left]
-    pivot2idx = random.randrange(left+1,right+1)
-    T[right],T[pivot2idx] = T[pivot2idx],T[right]
+    if randomize:
+        pivot1idx = random.randrange(left,right+1)
+        T[left],T[pivot1idx] = T[pivot1idx],T[left]
+        pivot2idx = random.randrange(left+1,right+1)
+        T[right],T[pivot2idx] = T[pivot2idx],T[right]
     #make sure left pivot is smaller
     if T[left] > T[right]:
         T[left],T[right] = T[right],T[left]
@@ -37,6 +39,6 @@ def dual_pivot(T,left=0,right=None):
     #swap pivots into final positions
     T[left],T[L-1] = T[L-1],T[left]
     T[right],T[G+1] = T[G+1],T[right]
-    dual_pivot(T,left,L-2)
-    dual_pivot(T,L,G)
-    dual_pivot(T,G+2,right)
+    dual_pivot(T,left,L-2,randomize,threshold,subsort)
+    dual_pivot(T,L,G,randomize,threshold,subsort)
+    dual_pivot(T,G+2,right,randomize,threshold,subsort)
