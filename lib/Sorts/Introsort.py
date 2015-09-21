@@ -82,6 +82,8 @@ def quicksort(A, p = 0, r = None):
 
 
 def introsort(A, p=0, r = None, maxdepth = None):
+  if len(A) == 0:
+    return
   if maxdepth == None:
     maxdepth = math.floor(math.log(len(A))) * 2
   if r == None:
@@ -90,16 +92,16 @@ def introsort(A, p=0, r = None, maxdepth = None):
   if p >= r:
     return  # base case
   elif maxdepth == 0:
-      heapsort(A,p,r+1)
+      heapsort(A,p,r)
   else:
       q = partition(A, p, r)  # assume this function does pivot selection, p is the final position of the pivot
       introsort(A, p, q - 1, maxdepth - 1)
       introsort(A, q + 1, r, maxdepth - 1)
 
 
-# A = [234,2342,34,34,32,12,1,3,4,6,3,2,8,9,6,5,4,3,3,2,1]
-# print A
+A = [234,2342,34,34,32,12,1,3,4,6,3,2,8,9,6,5,4,3,3,2,1]
+print A
 # #quicksort(A)
 # #heapsort(A)
-# introsort(A)
-# print A
+introsort(A)
+print A
